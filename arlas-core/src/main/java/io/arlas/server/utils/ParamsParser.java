@@ -35,6 +35,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ParamsParser {
     private static ObjectMapper objectMapper = new ObjectMapper();
@@ -179,27 +181,16 @@ public class ParamsParser {
         filter.notgintersect = getStringMultiFilter(notgintersect);
         return filter;
     }
-
+    
     public static List<MultiValueFilter<String>> getStringMultiFilter(List<String> filters) {
         List<MultiValueFilter<String>> ret = null;
         if (filters != null && !filters.isEmpty()) {
-            ret = new ArrayList<>();
-            for (String multiFilterString : filters) {
-                MultiValueFilter<String> multiFilter = new MultiValueFilter<>();
-                for (String filter : getMultiFiltersFromSemiColonsSeparatedString(multiFilterString)) {
-                    if (!Strings.isNullOrEmpty(filter)) {
-                        multiFilter.add(filter);
-                    }
-                }
-                ret.add(multiFilter);
-            }
+            ret = filters.stream().filter(f -> f != null).map(ParamsParser::getMultiFiltersFromSemiColonsSeparatedString).collect(Collectors.toList());
         }
         return ret;
     }
 
-    private static String[] getMultiFiltersFromSemiColonsSeparatedString(String filters) {
-        return filters.split(";");
-    }
+    private static MultiValueFilter<String> getMultiFiltersFromSemiColonsSeparatedString(String filters) { return (MultiValueFilter<String>)(Arrays.asList(filters.split(";"))); }
 
     public static Size getSize(IntParam size, IntParam from) throws ArlasException {
         Size sizeObject = new Size();
