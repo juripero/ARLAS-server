@@ -247,6 +247,11 @@ public class SearchRESTService extends ExploreRESTServices {
             // --------------------------------------------------------
             // ----------------------- SEARCH -----------------------
             // --------------------------------------------------------
+            @ApiParam(
+                    name = "body",
+                    value = "body",
+                    allowMultiple = false,
+                    required = true)
             Search search,
 
             // --------------------------------------------------------

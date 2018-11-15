@@ -173,10 +173,7 @@ echo "=> Generate client APIs"
 BASEDIR=$PWD
 ls target/tmp/
 #@see scripts/build-swagger-codegen.sh if you need a fresher version of swagger codegen
-docker run --rm \
-	-v $PWD:/opt/gen \
-	-v $HOME/.m2:/root/.m2 \
-	gisaia/swagger-codegen:2.3.1
+
 
 docker run --rm \
 	-v $PWD:/opt/gen \
@@ -184,7 +181,7 @@ docker run --rm \
 	gisaia/swagger-codegen-python:2.2.3
 
 echo "=> Build Typescript API "${FULL_API_VERSION}
-cd ${BASEDIR}/target/tmp/typescript-fetch/
+cd ${BASEDIR}/arlas-client-api/target/generated-sources/swagger/typescript/
 cp ${BASEDIR}/conf/npm/package-build.json package.json
 cp ${BASEDIR}/conf/npm/tsconfig-build.json .
 npm version --no-git-tag-version ${FULL_API_VERSION}
@@ -194,7 +191,7 @@ npm run postbuild
 cd ${BASEDIR}
 
 echo "=> Publish Typescript API "
-cp ${BASEDIR}/conf/npm/package-publish.json ${BASEDIR}/target/tmp/typescript-fetch/dist/package.json
+cp ${BASEDIR}/conf/npm/package-publish.json ${BASEDIR}/arlas-client-api/target/generated-sources/swagger/typescript/dist/package.json
 cd ${BASEDIR}/target/tmp/typescript-fetch/dist
 npm version --no-git-tag-version ${FULL_API_VERSION}
 

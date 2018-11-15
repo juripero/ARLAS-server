@@ -55,9 +55,7 @@ public class AggregateRESTService extends ExploreRESTServices {
     @GET
     @Produces(UTF8JSON)
     @Consumes(UTF8JSON)
-    @ApiOperation(value = "Aggregate", produces = UTF8JSON, notes = Documentation.AGGREGATION_OPERATION, consumes = UTF8JSON, response = AggregationResponse.class
-
-    )
+    @ApiOperation(value = "Aggregate", produces = UTF8JSON, notes = Documentation.AGGREGATION_OPERATION, consumes = UTF8JSON, response = AggregationResponse.class)
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful operation", response = AggregationResponse.class, responseContainer = "ArlasAggregation"),
             @ApiResponse(code = 500, message = "Arlas Server Error.", response = Error.class), @ApiResponse(code = 400, message = "Bad request.", response = Error.class)})
     public Response aggregate(
@@ -185,8 +183,12 @@ public class AggregateRESTService extends ExploreRESTServices {
             // --------------------------------------------------------
             // ----------------------- AGGREGATION -----------------------
             // --------------------------------------------------------
+            @ApiParam(
+                    name = "body",
+                    value = "body",
+                    allowMultiple = false,
+                    required = true)
             AggregationsRequest aggregationsRequest,
-
             // --------------------------------------------------------
             // -----------------------  FILTER  -----------------------
             // --------------------------------------------------------

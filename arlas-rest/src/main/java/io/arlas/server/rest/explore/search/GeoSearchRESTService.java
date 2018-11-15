@@ -441,6 +441,11 @@ public class GeoSearchRESTService extends ExploreRESTServices {
             // --------------------------------------------------------
             // -----------------------  Search   -----------------------
             // --------------------------------------------------------
+            @ApiParam(
+                    name = "body",
+                    value = "body",
+                    allowMultiple = false,
+                    required = true)
             Search search,
 
             // --------------------------------------------------------

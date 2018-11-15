@@ -67,6 +67,11 @@ public class TagRESTService extends UpdateRESTServices {
             // --------------------------------------------------------
             // ----------------------- SEARCH   -----------------------
             // --------------------------------------------------------
+            @ApiParam(
+                    name = "body",
+                    value = "body",
+                    allowMultiple = false,
+                    required = true)
             TagRequest tagRequest,
 
             // --------------------------------------------------------
@@ -120,6 +125,11 @@ public class TagRESTService extends UpdateRESTServices {
             // --------------------------------------------------------
             // ----------------------- SEARCH   -----------------------
             // --------------------------------------------------------
+            @ApiParam(
+                    name = "body",
+                    value = "body",
+                    allowMultiple = false,
+                    required = true)
             TagRequest tagRequest,
 
             // --------------------------------------------------------

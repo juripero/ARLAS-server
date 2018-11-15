@@ -189,6 +189,11 @@ public class CountRESTService extends ExploreRESTServices {
             // --------------------------------------------------------
             // -----------------------  SEARCH  -----------------------
             // --------------------------------------------------------
+            @ApiParam(
+                    name = "body",
+                    value = "body",
+                    allowMultiple = false,
+                    required = true)
             Count count
     ) throws InterruptedException, ExecutionException, IOException, NotFoundException, ArlasException {
         CollectionReference collectionReference = exploreServices.getDaoCollectionReference().getCollectionReference(collection);

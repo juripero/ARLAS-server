@@ -18,6 +18,10 @@
     <module>ogc-wfs</module>
     <module>arlas-server</module>
     <module>arlas-tests</module>
+    <module> arlas-client-api</module>
+
+
+
   </modules>
 
   <properties>

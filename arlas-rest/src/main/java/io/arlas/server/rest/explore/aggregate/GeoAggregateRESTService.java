@@ -352,8 +352,12 @@ public class GeoAggregateRESTService extends ExploreRESTServices {
             // --------------------------------------------------------
             // ----------------------- AGGREGATION -----------------------
             // --------------------------------------------------------
-            AggregationsRequest aggregationRequest,
-
+            @ApiParam(
+                    name = "body",
+                    value = "body",
+                    allowMultiple = false,
+                    required = true)
+                    AggregationsRequest aggregationsRequest,
             // --------------------------------------------------------
             // -----------------------  FILTER  -----------------------
             // --------------------------------------------------------
@@ -385,10 +389,10 @@ public class GeoAggregateRESTService extends ExploreRESTServices {
         AggregationsRequest aggregationsRequestHeader = new AggregationsRequest();
         aggregationsRequestHeader.filter = ParamsParser.getFilter(partitionFilter);
         MixedRequest request = new MixedRequest();
-        request.basicRequest = aggregationRequest;
+        request.basicRequest = aggregationsRequest;
         request.headerRequest = aggregationsRequestHeader;
 
-        FeatureCollection fc = getFeatureCollection(request, collectionReference, (aggregationRequest.form!=null && aggregationRequest.form.flat));
+        FeatureCollection fc = getFeatureCollection(request, collectionReference, (aggregationsRequest.form!=null && aggregationsRequest.form.flat));
 
         return cache(Response.ok(fc), maxagecache);
     }
