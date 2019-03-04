@@ -83,7 +83,14 @@ case $i in
 esac
 done
 
-ELASTIC_VERSIONS_6=("6.0.1","6.1.3","6.2.4","6.3.2","6.4.0")
+ELASTIC_VERSIONS_6=(
+    6.0.1
+    6.1.3
+    6.2.4
+    6.3.2
+    6.4.0
+)
+
 case $ELASTIC_RANGE in
     "6")
         ELASTIC_VERSIONS=( "${ELASTIC_VERSIONS_6[@]}" )
@@ -162,7 +169,7 @@ docker-compose --project-name arlas down
 
 itests() {
 	echo "=> Run integration tests with several elasticsearch versions (${ELASTIC_VERSIONS[*]})"
-	for i in "${ELASTIC_RANGE[@]}"
+	for i in "${ELASTIC_VERSIONS[@]}"
     do
 	    ./scripts/tests-integration.sh --es=$i
     done
