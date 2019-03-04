@@ -131,6 +131,15 @@ if [ "$SIMULATE" == "NO" ]; then
     git pull origin develop
 else echo "=> Skip develop checkout"; fi
 
+itests() {
+    echo "=> Run integration tests with several elasticsearch versions (${ELASTIC_VERSIONS[*]})"
+    for i in "${ELASTIC_VERSIONS[@]}"
+    do
+        ./scripts/tests-integration.sh --es=$i
+    done
+}
+if [ "$TESTS" == "YES" ]; then itests; else echo "=> Skip integration tests"; fi
+
 echo "=> Update project version"
 mvn clean
 mvn versions:set -DnewVersion=${ARLAS_VERSION}
@@ -166,15 +175,6 @@ i=1; until curl -XGET http://${DOCKER_IP}:19999/arlas/swagger.yaml -o target/tmp
 
 echo "=> Stop arlas-server stack"
 docker-compose --project-name arlas down
-
-itests() {
-	echo "=> Run integration tests with several elasticsearch versions (${ELASTIC_VERSIONS[*]})"
-	for i in "${ELASTIC_VERSIONS[@]}"
-    do
-	    ./scripts/tests-integration.sh --es=$i
-    done
-}
-if [ "$TESTS" == "YES" ]; then itests; else echo "=> Skip integration tests"; fi
 
 echo "=> Generate client APIs"
 BASEDIR=$PWD
