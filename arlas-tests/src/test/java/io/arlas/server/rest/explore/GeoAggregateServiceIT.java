@@ -385,7 +385,7 @@ public class GeoAggregateServiceIT extends AbstractGeohashTiledTest {
     @Override
     protected List<String> getFlattenedItems() {
         List<String> flattenedItems = new ArrayList<>();
-        flattenedItems.add("params-startdate_sum_");
+        flattenedItems.add("params" + FLATTEN_CHAR + "startdate" + FLATTEN_CHAR + "sum" + FLATTEN_CHAR );
         flattenedItems.add("count");
         flattenedItems.add("key");
         flattenedItems.add("keyAsString");

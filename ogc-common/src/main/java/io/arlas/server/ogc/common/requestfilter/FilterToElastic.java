@@ -1092,7 +1092,7 @@ public class FilterToElastic implements FilterVisitor, ExpressionVisitor {
                 }else if(lastElement.trim().length()==2){
                     literal =firstElement.concat(".").concat(millisPart).concat("0").concat("Z");
                 }
-                //TO DO change the test
+                //TODO change the test
                 field = dateFormatter.print((f.parse((String)literal)).getTime());
             } catch (ParseException e) {
                 List<OGCExceptionMessage> wfsExceptionMessages = new ArrayList<>();

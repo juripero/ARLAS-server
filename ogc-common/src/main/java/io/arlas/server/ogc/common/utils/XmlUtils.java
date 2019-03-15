@@ -148,8 +148,7 @@ public class XmlUtils {
                 writeEmptyElement(writer, nameToDisplay, "boolean", 0);
                 break;
             case DATE:
-                    writeEmptyElement(writer, nameToDisplay, "dateTime", 0);
-
+                writeEmptyElement(writer, nameToDisplay, "dateTime", 0);
         }
     }
 

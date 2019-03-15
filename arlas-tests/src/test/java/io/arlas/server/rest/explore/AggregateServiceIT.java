@@ -354,7 +354,7 @@ public class AggregateServiceIT extends AbstractAggregatedTest {
     @Override
     protected List<String> getFlattenedItems() {
         List<String> flattenedItems = new ArrayList<>();
-        flattenedItems.add("params-age_avg_");
+        flattenedItems.add("params" + FLATTEN_CHAR + "age" + FLATTEN_CHAR + "avg" + FLATTEN_CHAR );
         flattenedItems.add("count");
         flattenedItems.add("key");
         flattenedItems.add("keyAsString");
