@@ -19,22 +19,17 @@
 
 package io.arlas.server.app;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class WFSConfiguration {
 
     @JsonProperty("featureNamespace")
     public String featureNamespace;
 
-    @JsonProperty("replaceChar")
-    public String replaceChar;
-
     public String getFeatureNamespace() {
         return featureNamespace;
     }
 
-    public String getReplaceChar() {
-        return replaceChar;
-    }
-    
 }
