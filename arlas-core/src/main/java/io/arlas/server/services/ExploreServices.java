@@ -404,7 +404,7 @@ public class ExploreServices {
         addToFlat(flat, keyParts, "key", element.key);
         addToFlat(flat, keyParts, "key_as_string", element.keyAsString);
         addToFlat(flat, keyParts, "name", element.name);
-        addToFlat(flat, keyParts, "queryTime", element.queryTime);
+        addToFlat(flat, keyParts, "query_time", element.queryTime);
         addToFlat(flat, keyParts, "sumotherdoccounts", element.sumotherdoccounts);
         addToFlat(flat, keyParts, "totalnb", element.totalnb);
         addToFlat(flat, keyParts, "totalTime", element.totalTime);
