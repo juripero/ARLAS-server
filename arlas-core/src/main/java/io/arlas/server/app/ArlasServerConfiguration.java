@@ -131,13 +131,14 @@ public class ArlasServerConfiguration extends Configuration {
         List<Pair<String,Integer>> elasticNodes = new ArrayList<>();
         if(!StringUtil.isNullOrEmpty(elasticnodes)) {
             elasticNodes.addAll(getElasticNodes(elasticnodes));
-        } else if(!StringUtil.isNullOrEmpty(elastichost) && elasticport > 0) {
-            elasticNodes.add(new ImmutablePair<>(elastichost, elasticport));
         }
         return elasticNodes;
     }
 
     public void check() throws ArlasConfigurationException {
+        if (!StringUtil.isNullOrEmpty(elastichost) || elasticport != null) {
+            throw new ArlasConfigurationException("'elastic-host' and 'elastic-port' do not longer exist in 10.6.0. You can use 'elastic-nodes' instead.");
+        }
         if (getElasticNodes().isEmpty()) {
             throw new ArlasConfigurationException("Elastic search configuration missing in config file.");
         }
