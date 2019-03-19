@@ -41,22 +41,20 @@ usage(){
 }
 
 ################################################################################
-# Setup for executing containers as current user:group, instead of root:root
+# Setup for executing containers with current UID:GID, instead of 0:0 (root:root)
 # Avoids outputing root-owned files through bind-mounts
 ################################################################################
 
 EXECUTE_DOCKER_ALPINE_COMMAND_AS_CURRENT_OWNER="
 HOST_CURRENT_GROUP_ID='$(id -g)'
-HOST_CURRENT_GROUP_NAME='$(id -g -n)'
 HOST_CURRENT_USER_ID='$(id -u)'
-HOST_CURRENT_USER_NAME='$(id -n -u)'
 
 
 ################################################################################
 # Ensure a group with same ID as current host group is available (create it if it does not exist)
 ################################################################################
 if ! getent group \"\$HOST_CURRENT_GROUP_ID\"; then
-    addgroup -g \"\$HOST_CURRENT_GROUP_ID\" \"\$HOST_CURRENT_GROUP_NAME\"
+    addgroup -g \"\$HOST_CURRENT_GROUP_ID\" container-group
 fi
 
 ################################################################################
@@ -67,26 +65,24 @@ CONTAINER_GROUP_NAME=\"\$(getent group \"\$HOST_CURRENT_GROUP_ID\" | cut -d : -f
 ################################################################################
 # Add a user with same ID as the current host user, and same group ID
 ################################################################################
-adduser -D -G \"\$CONTAINER_GROUP_NAME\" -s /bin/ash -u \"\$HOST_CURRENT_USER_ID\" \"\$HOST_CURRENT_USER_NAME\"
+adduser -D -G \"\$CONTAINER_GROUP_NAME\" -s /bin/ash -u \"\$HOST_CURRENT_USER_ID\" container-user
 
 ################################################################################
 # Execute command as the new user
 ################################################################################
-su - \"\$HOST_CURRENT_USER_NAME\" -c"
+su - container-user -c"
 
 
 EXECUTE_DOCKER_DEBIAN_COMMAND_AS_CURRENT_OWNER="
 HOST_CURRENT_GROUP_ID='$(id -g)'
-HOST_CURRENT_GROUP_NAME='$(id -g -n)'
 HOST_CURRENT_USER_ID='$(id -u)'
-HOST_CURRENT_USER_NAME='$(id -n -u)'
 
 
 ################################################################################
 # Ensure a group with same ID as current host group is available (create it if it does not exist)
 ################################################################################
 if ! getent group \"\$HOST_CURRENT_GROUP_ID\"; then
-    groupadd -g \"\$HOST_CURRENT_GROUP_ID\" \"\$HOST_CURRENT_GROUP_NAME\"
+    groupadd -g \"\$HOST_CURRENT_GROUP_ID\" container-group
 fi
 
 ################################################################################
@@ -97,12 +93,12 @@ CONTAINER_GROUP_NAME=\"\$(getent group \"\$HOST_CURRENT_GROUP_ID\" | cut -d : -f
 ################################################################################
 # Add a user with same ID as the current host user, and same group ID
 ################################################################################
-useradd -g \"\$CONTAINER_GROUP_NAME\" -s /bin/bash -u \"\$HOST_CURRENT_USER_ID\" \"\$HOST_CURRENT_USER_NAME\"
+useradd -g \"\$CONTAINER_GROUP_NAME\" -s /bin/bash -u \"\$HOST_CURRENT_USER_ID\" container-user
 
 ################################################################################
 # Execute command as the new user
 ################################################################################
-su - \"\$HOST_CURRENT_USER_NAME\" -c"
+su - container-user -c"
 
 ################################################################################
 
