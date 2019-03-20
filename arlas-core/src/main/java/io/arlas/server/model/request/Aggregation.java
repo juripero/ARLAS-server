@@ -22,9 +22,11 @@ package io.arlas.server.model.request;
 import io.arlas.server.model.enumerations.AggregationTypeEnum;
 import io.arlas.server.model.enumerations.Order;
 import io.arlas.server.model.enumerations.OrderOn;
+import io.dropwizard.jackson.JsonSnakeCase;
 
 import java.util.List;
 
+@JsonSnakeCase
 public class Aggregation {
     public AggregationTypeEnum type;
     public String field;

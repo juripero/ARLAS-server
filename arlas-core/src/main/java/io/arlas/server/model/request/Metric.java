@@ -20,7 +20,9 @@
 package io.arlas.server.model.request;
 
 import io.arlas.server.model.enumerations.CollectionFunction;
+import io.dropwizard.jackson.JsonSnakeCase;
 
+@JsonSnakeCase
 public class Metric {
     public String collectField;
     public CollectionFunction collectFct;

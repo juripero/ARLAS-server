@@ -15,7 +15,7 @@ import sys
 from setuptools import setup, find_packages
 
 NAME = "arlas-api"
-VERSION = "api_version"
+VERSION = "10.0.0-beta"
 # To install the library, run the following
 #
 # python setup.py install
