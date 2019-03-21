@@ -19,6 +19,9 @@
 
 package io.arlas.server.model.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.arlas.server.model.enumerations.AggregationTypeEnum;
 import io.arlas.server.model.enumerations.Order;
 import io.arlas.server.model.enumerations.OrderOn;
@@ -26,7 +29,7 @@ import io.dropwizard.jackson.JsonSnakeCase;
 
 import java.util.List;
 
-@JsonSnakeCase
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Aggregation {
     public AggregationTypeEnum type;
     public String field;

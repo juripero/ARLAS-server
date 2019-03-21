@@ -19,10 +19,11 @@
 
 package io.arlas.server.model.request;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.arlas.server.model.enumerations.CollectionFunction;
-import io.dropwizard.jackson.JsonSnakeCase;
 
-@JsonSnakeCase
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Metric {
     public String collectField;
     public CollectionFunction collectFct;
