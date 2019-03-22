@@ -488,9 +488,9 @@ public class GeoSearchRESTService extends ExploreRESTServices {
             /** Setting geometry of geojson */
             //Apply geometry or centroid to geo json feature
             if (arlasHit.md.geometry != null) {
-                feature.setGeometry(arlasHit.md.geometry);
+                feature = GeoTypeMapper.getFeatureWithSetGeometry(feature, arlasHit.md.geometry);
             } else if (arlasHit.md.centroid != null) {
-                feature.setGeometry(arlasHit.md.centroid);
+                feature = GeoTypeMapper.getFeatureWithSetGeometry(feature, arlasHit.md.centroid);
             }
 
             /** setting the properties of the geojson */

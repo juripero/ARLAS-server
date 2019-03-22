@@ -33,10 +33,7 @@ import io.arlas.server.model.response.Error;
 import io.arlas.server.app.Documentation;
 import io.arlas.server.rest.explore.ExploreRESTServices;
 import io.arlas.server.services.ExploreServices;
-import io.arlas.server.utils.BoundingBox;
-import io.arlas.server.utils.GeoTileUtil;
-import io.arlas.server.utils.MapExplorer;
-import io.arlas.server.utils.ParamsParser;
+import io.arlas.server.utils.*;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -452,8 +449,8 @@ public class GeoAggregateRESTService extends ExploreRESTServices {
                 }
                 feature.setProperties(properties);
                 feature.setProperty(FEATURE_TYPE_KEY, FEATURE_TYPE_VALUE);
-                GeoJsonObject g = element.geometry;
-                feature.setGeometry(g);
+
+                feature = GeoTypeMapper.getFeatureWithSetGeometry(feature, element.geometry);
                 fc.add(feature);
             }
         }

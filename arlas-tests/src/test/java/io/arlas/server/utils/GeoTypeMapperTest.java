@@ -44,10 +44,10 @@ public class GeoTypeMapperTest {
         pointMap.put("lon", -71.34);
 
         Point refPoint = new Point(-71.34, 41.12);
-        assertTrue(GeoTypeMapper.getGeoJsonObject(pointStringLatLon).equals(refPoint));
-        assertTrue(GeoTypeMapper.getGeoJsonObject(pointStringGeohash) instanceof Point);
-        assertTrue(GeoTypeMapper.getGeoJsonObject(pointArray).equals(refPoint));
-        assertTrue(GeoTypeMapper.getGeoJsonObject(pointMap).equals(refPoint));
+        assertTrue(GeoTypeMapper.getGeometryObject(pointStringLatLon).toGeoJsonObject().equals(refPoint));
+        assertTrue(GeoTypeMapper.getGeometryObject(pointStringGeohash).toGeoJsonObject() instanceof Point);
+        assertTrue(GeoTypeMapper.getGeometryObject(pointArray).toGeoJsonObject().equals(refPoint));
+        assertTrue(GeoTypeMapper.getGeometryObject(pointMap).toGeoJsonObject().equals(refPoint));
     }
 
 }

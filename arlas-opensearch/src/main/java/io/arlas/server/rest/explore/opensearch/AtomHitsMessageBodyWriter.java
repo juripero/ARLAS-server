@@ -151,9 +151,9 @@ public class AtomHitsMessageBodyWriter implements MessageBodyWriter<Hits> {
                     writer.writeEndElement();
                     writer.writeStartElement(GEORSS.XML_NS, "where");
                     if (hit.md.geometry != null) {
-                        GeoFormat.geojson2gml(hit.md.geometry, writer, hit.md.id);
+                        GeoFormat.geojson2gml(hit.md.geometry.toGeoJsonObject(), writer, hit.md.id);
                     } else {
-                        GeoFormat.geojson2gml(hit.md.centroid, writer, hit.md.id);
+                        GeoFormat.geojson2gml(hit.md.centroid.toGeoJsonObject(), writer, hit.md.id);
                     }
                     writer.writeEndElement();
                     writer.writeEndElement();

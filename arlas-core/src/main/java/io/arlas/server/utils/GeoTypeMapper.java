@@ -24,14 +24,14 @@ import com.fasterxml.jackson.databind.ObjectReader;
 import io.arlas.server.exceptions.ArlasException;
 import io.arlas.server.exceptions.NotImplementedException;
 import org.elasticsearch.common.geo.GeoPoint;
-import org.geojson.GeoJsonObject;
-import org.geojson.Point;
+import org.geojson.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class GeoTypeMapper {
 
@@ -41,6 +41,10 @@ public class GeoTypeMapper {
     private static Logger LOGGER = LoggerFactory.getLogger(GeoTypeMapper.class);
 
     @SuppressWarnings("rawtypes")
+    public static GeometryObject getGeometryObject(Object elasticsearchGeoField) throws ArlasException {
+        return GeometryObject.toGeometryObject(getGeoJsonObject(elasticsearchGeoField));
+    }
+
     public static GeoJsonObject getGeoJsonObject(Object elasticsearchGeoField) throws ArlasException {
         GeoJsonObject geoObject = null;
         if (elasticsearchGeoField instanceof String) {
@@ -87,5 +91,17 @@ public class GeoTypeMapper {
             throw new NotImplementedException("Not supported geo_point or geo_shape format found.");
         }
         return geoObject;
+    }
+
+    public static Feature getFeatureWithSetGeometry(Feature feature, GeometryObject geometry) {
+        Feature f = feature;
+        if (geometry.getType().equals(Point.class.getSimpleName())) {
+            feature.setGeometry( new Point((LngLatAlt)geometry.getCoordinates()));
+        } else if (geometry.getType().equals(Polygon.class.getSimpleName())) {
+            feature.setGeometry( new Polygon((List<LngLatAlt>)geometry.getCoordinates()));
+        } else if (geometry.getType().equals(LineString.class.getSimpleName())) {
+            feature.setGeometry( new LineString(((List<LngLatAlt>)geometry.getCoordinates()).toArray(new LngLatAlt[((List<LngLatAlt>)geometry.getCoordinates()).size()])));
+        }
+        return feature;
     }
 }

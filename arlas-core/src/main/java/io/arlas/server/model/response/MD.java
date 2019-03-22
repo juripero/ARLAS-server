@@ -19,6 +19,7 @@
 
 package io.arlas.server.model.response;
 
+import io.arlas.server.utils.GeometryObject;
 import io.dropwizard.jackson.JsonSnakeCase;
 import org.geojson.GeoJsonObject;
 
@@ -28,7 +29,7 @@ public class MD {
 
     public Long timestamp;
 
-    public GeoJsonObject geometry;
+    public GeometryObject geometry;
 
-    public GeoJsonObject centroid;
+    public GeometryObject centroid;
 }

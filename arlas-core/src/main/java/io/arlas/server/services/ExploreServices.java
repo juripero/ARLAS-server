@@ -287,10 +287,10 @@ public class ExploreServices {
                 element.key = geoPoint;
                 if (aggregationResponse.name.equals(FluidSearch.GEOHASH_AGG)) {
                     // return the centroid of the geohash
-                    element.geometry = new Point(geoPoint.getLon(), geoPoint.getLat());
+                    element.geometry = GeometryObject.toGeometryObject(new Point(geoPoint.getLon(), geoPoint.getLat()));
                 } else {
                     // return the Extent of the geohash
-                    element.geometry = createPolygonFromRectangle(GeoHashUtils.bbox(element.keyAsString.toString()));
+                    element.geometry = GeometryObject.toGeometryObject(createPolygonFromRectangle(GeoHashUtils.bbox(element.keyAsString.toString())));
                 }
             } else {
                 element.key = bucket.getKey();
@@ -320,7 +320,7 @@ public class ExploreServices {
                         subAggregationResponse = null;
                         long nbHits = ((TopHits) subAggregation).getHits().totalHits;
                         Map source = nbHits > 0 ? ((TopHits) subAggregation).getHits().getHits()[0].getSourceAsMap() : null;
-                        GeoJsonObject geometryGeoJson = null;
+                        GeometryObject geometryGeoJson = null;
                         try {
                             CollectionReference collectionReference = getDaoCollectionReference().getCollectionReference(collection);
                             Object geometry = collectionReference.params.geometryPath != null ?
@@ -329,7 +329,7 @@ public class ExploreServices {
                                 geometry = MapExplorer.getObjectFromPath(collectionReference.params.centroidPath, source);
                             }
                             geometryGeoJson = geometry != null ?
-                                    GeoTypeMapper.getGeoJsonObject(geometry) : null;
+                                    GeoTypeMapper.getGeometryObject(geometry) : null;
                         } catch (ArlasException e) {
                             e.printStackTrace();
                         }
@@ -354,7 +354,7 @@ public class ExploreServices {
                                 Polygon box = createBox((GeoBounds) subAggregation);
                                 GeoJsonObject g = box;
                                 if (aggregationMetric.type.equals(CollectionFunction.GEOBBOX.name().toLowerCase() + "-bucket")) {
-                                    element.geometry = box;
+                                    element.geometry = GeometryObject.toGeometryObject(box);
                                 }
                                 feature.setGeometry(g);
                                 fc.add(feature);
@@ -362,7 +362,7 @@ public class ExploreServices {
                                 GeoPoint centroid = ((GeoCentroid) subAggregation).centroid();
                                 GeoJsonObject g = new Point(centroid.getLon(), centroid.getLat());
                                 if (aggregationMetric.type.equals(CollectionFunction.GEOCENTROID.name().toLowerCase() + "-bucket")) {
-                                    element.geometry = g;
+                                    element.geometry = GeometryObject.toGeometryObject(g);
                                 }
                                 feature.setGeometry(g);
                                 fc.add(feature);

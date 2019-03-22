@@ -59,7 +59,7 @@ public class Hit {
         if (collectionReference.params.centroidPath != null) {
             try {
                 Object m = MapExplorer.getObjectFromPath(collectionReference.params.centroidPath, source);
-                md.centroid = m != null ? GeoTypeMapper.getGeoJsonObject(m) : null;
+                md.centroid = m != null ? GeoTypeMapper.getGeometryObject(m) : null;
             } catch (ArlasException e) {
                 e.printStackTrace();
             }
@@ -67,7 +67,7 @@ public class Hit {
         if (collectionReference.params.geometryPath != null) {
             try {
                 Object m = MapExplorer.getObjectFromPath(collectionReference.params.geometryPath, source);
-                md.geometry = m != null ? GeoTypeMapper.getGeoJsonObject(m) : null;
+                md.geometry = m != null ? GeoTypeMapper.getGeometryObject(m) : null;
             } catch (ArlasException e) {
                 e.printStackTrace();
             }

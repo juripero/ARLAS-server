@@ -19,12 +19,9 @@
 
 package io.arlas.server.model.response;
 
+import io.arlas.server.utils.GeometryObject;
 import io.dropwizard.jackson.JsonSnakeCase;
 import org.geojson.GeoJsonObject;
-import org.geojson.Point;
-import org.geojson.Polygon;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +35,7 @@ public class AggregationResponse extends OperationInfo {
     public List<AggregationResponse> elements;
     public List<AggregationMetric> metrics;
     public List<Object> hits;
-    public GeoJsonObject geometry;
+    public GeometryObject geometry;
     public Map<String, Object> flattenedElements;
 }
 
