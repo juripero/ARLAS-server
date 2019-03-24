@@ -33,8 +33,4 @@ public class WFSConfiguration {
         return featureNamespace;
     }
 
-    public String getReplaceChar() {
-        return replaceChar;
-    }
-    
 }

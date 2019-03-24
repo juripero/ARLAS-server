@@ -191,6 +191,10 @@ public class ArlasServer extends Application<ArlasServerConfiguration> {
             LOGGER.info("WFS Service disabled");
         }
 
+        if (configuration.arlasServiceWFSEnabled && configuration.wfsConfiguration != null && configuration.wfsConfiguration.replaceChar != null) {
+            LOGGER.warn("'arlas-wfs.replaceChar' is no longer supported. The replaceChar is now a configuration constant : " + ArlasServerConfiguration.FLATTEN_CHAR);
+        }
+
         if(configuration.arlasServiceOPENSEARCHEnabled){
             LOGGER.info("OPENSEARCH Service enabled");
             OpensearchConfiguration opensearchConfiguration = configuration.opensearchConfiguration;
